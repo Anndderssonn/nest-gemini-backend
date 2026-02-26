@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
-import { basicPromptDTO } from "../dtos/basic-prompt-dto";
+import { BasicPromptDTO } from "../dtos/basic-prompt-dto";
 
-export const basicPromptUseCase = async (ai: GoogleGenAI, basicPromptDto: basicPromptDTO) => {
+export const basicPromptUseCase = async (ai: GoogleGenAI, basicPromptDto: BasicPromptDTO) => {
     const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: basicPromptDto.prompt,

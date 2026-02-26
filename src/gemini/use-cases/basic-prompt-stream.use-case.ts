@@ -1,9 +1,9 @@
 import { createPartFromUri, createUserContent, GoogleGenAI } from "@google/genai";
-import { basicPromptDTO } from "../dtos/basic-prompt-dto";
+import { BasicPromptDTO } from "../dtos/basic-prompt-dto";
 import { Options } from "supertest";
 import { geminiUploadFiles } from "../helpers/gemini-upload-files";
 
-export const basicPromptStreamUseCase = async (ai: GoogleGenAI, basicPromptDto: basicPromptDTO, options?: Options) => {
+export const basicPromptStreamUseCase = async (ai: GoogleGenAI, basicPromptDto: BasicPromptDTO, options?: Options) => {
     const { prompt, files = [] } = basicPromptDto;
 
     const images = await geminiUploadFiles(ai, files);

@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class BasicPromptDTO {
+export class ImageGenerationDto {
     @IsString()
     @IsNotEmpty()
     prompt: string;

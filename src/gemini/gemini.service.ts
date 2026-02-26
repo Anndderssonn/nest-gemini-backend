@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Content, GoogleGenAI } from "@google/genai";
-import { basicPromptDTO } from './dtos/basic-prompt-dto';
+import { BasicPromptDTO } from './dtos/basic-prompt-dto';
 import { basicPromptUseCase } from './use-cases/basic-prompt.use-case';
 import { basicPromptStreamUseCase } from './use-cases/basic-prompt-stream.use-case';
 import { ChatPromptDto } from './dtos/chat-prompt.dto';
 import { chatPromptStreamUseCase } from './use-cases/chat-prompt-stream.use-case';
+import { ImageGenerationDto } from './dtos/image-generation.dto';
+import { iamgeGenerationUseCase } from './use-cases/image-generation.use-case';
 
 @Injectable()
 export class GeminiService {
     private ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     private chatHistory = new Map<String, Content[]>();
 
-    async basicPrompt(basicPromptDto: basicPromptDTO) {
+    async basicPrompt(basicPromptDto: BasicPromptDTO) {
         return basicPromptUseCase(this.ai, basicPromptDto);
     }
 
-    async basicPromptStream(basicPromptDto: basicPromptDTO) {
+    async basicPromptStream(basicPromptDto: BasicPromptDTO) {
         return basicPromptStreamUseCase(this.ai, basicPromptDto);
     }
 
@@ -32,5 +34,9 @@ export class GeminiService {
 
     getChatHistory(chatId: string) {
         return structuredClone(this.chatHistory.get(chatId) ?? []);
+    }
+
+    imageGeneration(imageGenerationDto: ImageGenerationDto) {
+        return iamgeGenerationUseCase(this.ai, imageGenerationDto);
     }
 }
