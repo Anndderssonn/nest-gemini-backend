@@ -6,6 +6,8 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { ChatPromptDto } from './dtos/chat-prompt.dto';
 import { GenerateContentResponse } from '@google/genai';
 import { ImageGenerationDto } from './dtos/image-generation.dto';
+import { PokemonHelperDTO } from './dtos/pokemon-helper.dto';
+import { TriviaQuestionDTO } from './dtos/trivia-question.dto';
 
 @Controller('gemini')
 export class GeminiController {
@@ -69,5 +71,15 @@ export class GeminiController {
     imageGenerationDto.files = files;
     const { imageUrl, text } = await this.geminiService.imageGeneration(imageGenerationDto);
     return { imageUrl, text };
+  }
+
+  @Post('pokemon-helper')
+  getPokemonHelp(@Body() pokemonHelperDto: PokemonHelperDTO) {
+    return this.geminiService.getPokemonHelp(pokemonHelperDto);
+  }
+
+  @Get('trivia/question/:topic')
+  getTriviaQuestion(@Param() triviaQuestionDto: TriviaQuestionDTO) {
+    return this.geminiService.getTriviaQuestion(triviaQuestionDto);
   }
 }
